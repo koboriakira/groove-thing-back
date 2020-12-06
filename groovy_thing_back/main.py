@@ -59,8 +59,8 @@ def get_stuff(group_id: str, stuff_id: str):
     return stuff
 
 
-@ app.post("/{group}/items")
-def add_stuff(group: str, body: StuffBody):
+@ app.post("/{group_id}/stuffs")
+def add_stuff(group_id: str, body: StuffBody):
     builder = StuffBuilder()
     builder.name(value=body.name)
     if body.use_cycle is not None:
@@ -71,5 +71,5 @@ def add_stuff(group: str, body: StuffBody):
         builder.use_cycle(use_cycle=UseCycle.NOT_USE, love_type=love_type)
     firestore_data: tuple[str, dict] = builder.build().to_firestore_data()
     inject.instance(StuffRepository).create(
-        group=group, doc_id=firestore_data[0], data=firestore_data[1])
+        group=group_id, doc_id=firestore_data[0], data=firestore_data[1])
     return {"isSuccess": True}
