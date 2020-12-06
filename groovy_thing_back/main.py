@@ -59,7 +59,7 @@ def get_stuff(group_id: str, stuff_id: str):
     return stuff
 
 
-@ app.post("/{group}/items")
+@ app.post("/{group}/stuffs")
 def add_stuff(group: str, body: StuffBody):
     builder = StuffBuilder()
     builder.name(value=body.name)
