@@ -67,5 +67,5 @@ class StuffRepository:
         pass
 
     @abstractmethod
-    def create(self, group: str, doc_id: str, data: dict) -> None:
+    def create(self, group_id: str, stuff: Stuff) -> None:
         pass

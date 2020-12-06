@@ -21,9 +21,10 @@ class StuffFirestoreRepository(StuffRepository):
             return None
         return _to_model(doc=doc)
 
-    def create(self, group: str, doc_id: str, data: dict) -> None:
+    def create(self, group_id: str, stuff: Stuff) -> None:
+        doc_id, data = stuff.to_firestore_data()
         doc_ref = db.collection(BASIS_COLLECTION).document(
-            group).collection(COLLECTION).document(doc_id)
+            group_id).collection(COLLECTION).document(doc_id)
         if doc_ref.get().exists:
             raise ValueError('すでに存在するデータです')
         doc_ref.set(data)

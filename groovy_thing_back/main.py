@@ -69,7 +69,7 @@ def add_stuff(group_id: str, body: StuffBody):
     if body.love_type is not None:
         love_type = LoveType.to_enum_by_string(string=body.love_type)
         builder.use_cycle(use_cycle=UseCycle.NOT_USE, love_type=love_type)
-    firestore_data: tuple[str, dict] = builder.build().to_firestore_data()
+    stuff = builder.build()
     inject.instance(StuffRepository).create(
-        group=group_id, doc_id=firestore_data[0], data=firestore_data[1])
-    return {"isSuccess": True}
+        group=group_id, stuff=stuff)
+    return stuff
